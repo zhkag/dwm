@@ -10,6 +10,8 @@ local X11LIB = '/usr/lib/X11'
 local XINERAMAFLAGS = '-DXINERAMA'
 local FREETYPEINC = "/usr/include/freetype2"
 
+local YAJLINC = '/usr/include/yajl'
+
 local function shell(xmake_os, cmds, sudo)
     function execv(cmd)
         print(cmd)
@@ -43,9 +45,9 @@ target("dwm")
     before_build(function (target)
         os.cp("config.def.h", "config.h")
     end)
-    add_includedirs(X11INC,FREETYPEINC)
+    add_includedirs(X11INC, FREETYPEINC, YAJLINC)
     add_linkdirs(X11LIB)
-    add_links('X11','Xinerama','fontconfig','Xft')
+    add_links('X11','Xinerama','fontconfig','Xft','yajl')
 
     add_cxflags(XINERAMAFLAGS)
     add_cflags("-std=c99 -pedantic -Wall -Wno-deprecated-declarations -Os")
